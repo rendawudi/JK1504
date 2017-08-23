@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<!--
+    id与对应接口的某个对应的方法名一致
+    mybatic还有其他标签(如<inert><delete>等)，找本书慢慢学
+-->
+<mapper namespace="com.jk1504.dao.Articlesmapper">
+
+	<!-- 添加文章 -->
+    <insert id="insertarticle" parameterType="com.jk1504.entity.Articles" > 
+        insert into articles(author,name,dbid,articlecontent,fbtime,redu) value(#{author},#{name},#{dbid},#{articlecontent},#{fbtime},#{redu})
+    </insert>
+    
+    <!-- 删除文章 -->
+    <delete id="deletearticle" parameterType="com.jk1504.entity.Articles" > 
+        delete  from articles where dbid=#{dbid} and articleid=#{articleid}
+    </delete>
+    
+	<!-- 返回文章列表（除了内容）按照时间排序返回 -->
+	<select id="returnarticlestm"  resultType="com.jk1504.entity.Articles"> 
+        select author,name,dbid,articleid,fbtime,redu from articles order by fbtime
+    </select>
+    
+    <!-- 返回文章列表（除了内容）按照热度排序返回 -->
+    <select id="returnarticlesrd"  resultType="com.jk1504.entity.Articles"> 
+        select author,name,dbid,articleid,fbtime,redu from articles order by redu
+    </select>
+    
+    <!-- 返回文章内容 -->
+    <select id="returnneirong"  parameterType="java.lang.Integer" resultType="java.lang.String"> 
+        select articlecontent from articles where articleid=#{articleid}
+    </select>
+    
+    <!-- 增加热度 -->
+    <update id="deupdateredu" parameterType="java.lang.Integer">
+    	update articles set redu = redu +1 where articleid=#{articleid} 
+    </update>
+</mapper>
