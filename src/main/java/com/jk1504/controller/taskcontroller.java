@@ -20,7 +20,7 @@ import com.jk1504.fuzhu.Tokenmg;
 import com.jk1504.service.Taskservice;
 
 @Controller
-@RequestMapping(value="/user")
+@RequestMapping(value="/function")
 public class taskcontroller
 {
 	@Autowired

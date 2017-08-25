@@ -1,4 +1,4 @@
-package com.js1504.exception;
+package com.jk1504.exception;
 
 public class taskwcrsexception extends taskxgexception{
 

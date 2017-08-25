@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.jk1504.entity.Joinparty;
 import com.jk1504.entity.Party;
-import com.js1504.exception.taskwcrsexception;
-import com.js1504.exception.taskxgexception;
+import com.jk1504.exception.taskwcrsexception;
+import com.jk1504.exception.taskxgexception;
 
 public interface Partyservicejk {
 	public boolean fabuParty(Party party);
