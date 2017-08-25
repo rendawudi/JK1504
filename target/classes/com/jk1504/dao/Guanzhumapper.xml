@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<!--
+    id与对应接口的某个对应的方法名一致
+    mybatic还有其他标签(如<inert><delete>等)，找本书慢慢学
+-->
+<mapper namespace="com.jk1504.dao.Guanzhumapper">
+	<!-- 关注某人 -->
+    <insert id="ingz" parameterType="com.jk1504.entity.Guanzhuform" > 
+        insert into guanzhu(gzzdbid,bgzzdbid) value(#{gzzdbid},#{bgzzdbid})
+    </insert>
+    <!-- 关注量加1 -->
+    <update id="inupdateusergz" parameterType="java.lang.Integer">
+    	update user set guanzhuliang = guanzhuliang +1 where dbid=#{dbid}
+    </update>
+	<!-- 被关注者发送文章时进行推送 -->
+	<select id="tuisong"  resultType="java.lang.Integer" parameterType="java.lang.Integer"> 
+        select gzzdbid from guanzhu where bgzzdbid=#{bgzzdbid}
+    </select>
+    <!-- 读取已经关注的名单 -->
+    <select id="searchgz"  parameterType="java.lang.Integer" resultType="java.lang.Integer"> 
+        select bgzzdbid from guanzhu where gzzdbid=#{gzzdbid}
+    </select>
+    <!-- 取消关注 -->
+     <delete id="deletegz" parameterType="com.jk1504.entity.Guanzhuform" > 
+        delete  from guanzhu where gzzdbid=#{gzzdbid} and bgzzdbid=#{bgzzdbid}
+    </delete>
+    <!-- 关注量减1 -->
+    <update id="deupdateusergz" parameterType="java.lang.Integer">
+    	update user set guanzhuliang = guanzhuliang -1 where dbid=#{dbid}
+    </update>
+</mapper>

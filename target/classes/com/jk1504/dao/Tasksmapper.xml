@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<!--
+    id与对应接口的某个对应的方法名一致
+    mybatic还有其他标签(如<inert><delete>等)，找本书慢慢学
+-->
+<mapper namespace="com.jk1504.dao.Tasksmapper">
+
+	<!--发布者发布任务 -->
+    <insert id="inserttask" parameterType="com.jk1504.entity.Tasks" > 
+        insert into task(dbid,taskjson) value(#{dbid},#{taskjson})
+    </insert>
+    
+    <!--发布者读取已经发布的任务 -->
+    <select id="returntask"  parameterType="java.lang.Integer"  resultType="com.jk1504.entity.Tasks"> 
+        select * from task where dbid=#{dbid}
+    </select>
+    
+    <!--发布者删除任务 -->
+    <delete id="deletetask" parameterType="com.jk1504.entity.Tasks" > 
+        delete  from task where taskid=#{taskid} and dbid=#{dbid}
+    </delete>
+    <delete id="deletetasksbyowner" parameterType="com.jk1504.entity.Tasks" > 
+        delete  from tasks where taskid=#{taskid}
+    </delete>
+
+    
+    <!--完成者提交任务 -->
+    <insert id="inserttasks" parameterType="com.jk1504.entity.Usertask" > 
+        insert into tasks(dbid,taskjson,taskid,taskcomplete) value(#{dbid},#{taskjson},#{taskid},#{taskcomplete})
+    </insert>
+    
+    <update id="inupdatetasks" parameterType="java.lang.Integer">
+    	update task set numnow = numnow +1 where taskid=#{taskid}
+    </update>
+    <!--完成者删除自己的提交 -->
+    <delete id="deletetasks" parameterType="com.jk1504.entity.Usertask" > 
+        delete  from tasks where taskid=#{taskid} and dbid=#{dbid}
+    </delete>
+    <update id="deupdatetasks" parameterType="java.lang.Integer">
+    	update task set numnow = numnow -1 where taskid=#{taskid}
+    </update>
+    <!--完成者读取发布后任务列表 -->
+    <select id="returntaskssx"  parameterType="com.jk1504.entity.Usertask"  resultType="com.jk1504.entity.Usertask"> 
+        select * from tasks where taskid=#{taskid} and dbid=#{dbid}
+    </select>
+    <select id="returntasks"    resultType="com.jk1504.entity.Tasks"> 
+        select * from task  
+    </select>
+</mapper>
