@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.jk1504.entity;
 
 
@@ -181,3 +182,95 @@ public class User {
 	
 }
 >>>>>>> parent of 08ac5ad... ä¿®å¤äº†qqå·ï¼Œç”µè¯å·ï¼Œå­¦å·æ•°æ®æº¢å‡ºã€‚
+=======
+package com.jk1504.entity;
+
+
+public class User {
+	private String username;		//ÓÃ»§Ãû
+	private String nickname;    	//êÇ³Æ
+	private String userpassword;	//ÃÜÂë
+	private String xingming;		//Ñ§ÉúĞÕÃû
+	private String stuid;			//Ñ§ºÅ
+	private Integer dbid;			//Êı¾İ¿â¹ØÁªid
+	private String imgpath; 		//Í·ÏñÂ·¾¶
+	private String qqid;			//QQºÅ
+	private String phone;			//ÊÖ»úºÅ
+	private Integer monitor;		//ÊÇ·ñÎª°àÎ¯
+	private Integer guanzhuliang;//ÓÃ»§×Ô¼ºµÄ¹Ø×¢Á¿
+	private String userclass;			//°à¼¶
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getUserpassword() {
+		return userpassword;
+	}
+	public void setUserpassword(String userpassword) {
+		this.userpassword = userpassword;
+	}
+	public String getXingming() {
+		return xingming;
+	}
+	public void setXingming(String xingming) {
+		this.xingming = xingming;
+	}
+	public String getStuid() {
+		return stuid;
+	}
+	public void setStuid(String stuid) {
+		this.stuid = stuid;
+	}
+	public Integer getDbid() {
+		return dbid;
+	}
+	public void setDbid(Integer dbid) {
+		this.dbid = dbid;
+	}
+	public String getImgpath() {
+		return imgpath;
+	}
+	public void setImgpath(String imgpath) {
+		this.imgpath = imgpath;
+	}
+	public String getQqid() {
+		return qqid;
+	}
+	public void setQqid(String qqid) {
+		this.qqid = qqid;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public Integer getMonitor() {
+		return monitor;
+	}
+	public void setMonitor(Integer monitor) {
+		this.monitor = monitor;
+	}
+	public Integer getGuanzhuliang() {
+		return guanzhuliang;
+	}
+	public void setGuanzhuliang(Integer guanzhuliang) {
+		this.guanzhuliang = guanzhuliang;
+	}
+	public String getUserclass() {
+		return userclass;
+	}
+	public void setUserclass(String userclass) {
+		this.userclass = userclass;
+	}
+	
+}
+>>>>>>> parent of 9adc572... Revert "ä¿®å¤äº†qqå·ï¼Œç”µè¯å·ï¼Œå­¦å·æ•°æ®æº¢å‡ºã€‚"
