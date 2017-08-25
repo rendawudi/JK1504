@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/main/java/com/js1504/exception/Joinpartysb.java
 package com.js1504.exception;
 
 public class Joinpartysb extends RuntimeException{
@@ -17,3 +18,24 @@ public class Joinpartysb extends RuntimeException{
 	}
 	
 }
+=======
+package com.js1504.exception;
+
+public class Joinpartysb extends RuntimeException{
+
+	
+	/**
+	 * �����
+	 */
+	private static final long serialVersionUID = -1744075676448257298L;
+	public Joinpartysb(String message)
+	{
+		super(message);
+	}
+	public Joinpartysb(String message,Throwable cause)
+	{
+		super(message,cause);
+	}
+	
+}
+>>>>>>> parent of 08ac5ad... 修复了qq号，电话号，学号数据溢出。:src/main/java/com/js1504/exception/Joinpartysb.java
