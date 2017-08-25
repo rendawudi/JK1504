@@ -9,8 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jk1504.dao.Partymapper;
 import com.jk1504.entity.Joinparty;
 import com.jk1504.entity.Party;
-import com.js1504.exception.taskwcrsexception;
-import com.js1504.exception.taskxgexception;
+import com.jk1504.exception.taskwcrsexception;
+import com.jk1504.exception.taskxgexception;
 
 @Service
 public class Partyservice implements Partyservicejk{

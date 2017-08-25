@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.jk1504.dao.Usermapper;
 import com.jk1504.entity.User;
-import com.js1504.exception.Userexcption;
-import com.js1504.exception.loginsb;
-import com.js1504.exception.userzhucesb;
+import com.jk1504.entity.Userxgxx;
+import com.jk1504.exception.Userexcption;
+import com.jk1504.exception.loginsb;
+import com.jk1504.exception.userzhucesb;
 
 @Service
 public class Userservice implements Userservicejk{
@@ -79,6 +80,72 @@ public class Userservice implements Userservicejk{
 
 		}
 		return cxUsers;
+	}
+
+	@Override
+	public boolean Userpaswdxg(Userxgxx user) throws Exception
+	{
+		try
+		{
+			User zsuser=new User();
+			zsuser.setUsername(user.getUsername());
+		 zsuser=usermapper.returnuser(zsuser);
+		String zsmm=zsuser.getUserpassword();
+		String srmm=user.getUserpassword();
+		if (BCrypt.checkpw(srmm, zsmm)) {
+			String mmString=user.getNewuserpassword();
+			String hashed=BCrypt.hashpw(mmString, BCrypt.gensalt());
+			zsuser.setUserpassword(hashed);
+			if (usermapper.updatapaswd(zsuser)>0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		} else {
+			return false;
+		}
+		
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public User Usernickxg(Userxgxx user) throws Exception
+	{
+		User user1=new User();
+		user1.setDbid(user.getDbid());
+		user1.setNickname(user.getNickname());
+		if (usermapper.updatanick(user1)>0)
+		{
+			return user1;
+		} else
+		{
+			user1.setNickname("no");
+		}
+		return user1;
+	}
+
+	@Override
+	public User Userimgxg(Userxgxx user) throws Exception
+	{
+		User user1=new User();
+		user1.setDbid(user.getDbid());
+		user1.setImgpath(user.getImgpath());
+		if (usermapper.updataimg(user1)>0)
+		{
+			return user1;
+		} else
+		{
+			user1.setNickname("no");
+		}
+		return user1;
 	}
 	
 

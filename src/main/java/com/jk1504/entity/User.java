@@ -6,11 +6,11 @@ public class User {
 	private String nickname;    	//昵称
 	private String userpassword;	//密码
 	private String xingming;		//学生姓名
-	private Integer stuid;			//学号
+	private String stuid;			//学号
 	private Integer dbid;			//数据库关联id
 	private String imgpath; 		//头像路径
-	private Integer qqid;			//QQ号
-	private Integer phone;			//手机号
+	private String qqid;			//QQ号
+	private String phone;			//手机号
 	private Integer monitor;		//是否为班委
 	private Integer guanzhuliang;//用户自己的关注量
 	private String userclass;			//班级
@@ -38,10 +38,10 @@ public class User {
 	public void setXingming(String xingming) {
 		this.xingming = xingming;
 	}
-	public Integer getStuid() {
+	public String getStuid() {
 		return stuid;
 	}
-	public void setStuid(Integer stuid) {
+	public void setStuid(String stuid) {
 		this.stuid = stuid;
 	}
 	public Integer getDbid() {
@@ -56,16 +56,16 @@ public class User {
 	public void setImgpath(String imgpath) {
 		this.imgpath = imgpath;
 	}
-	public Integer getQqid() {
+	public String getQqid() {
 		return qqid;
 	}
-	public void setQqid(Integer qqid) {
+	public void setQqid(String qqid) {
 		this.qqid = qqid;
 	}
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public Integer getMonitor() {

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.jk1504.dao.Tasksmapper;
 import com.jk1504.entity.Tasks;
 import com.jk1504.entity.Usertask;
-import com.js1504.exception.taskwcrsexception;
-import com.js1504.exception.taskxgexception;
+import com.jk1504.exception.taskwcrsexception;
+import com.jk1504.exception.taskxgexception;
 
 @Service
 public class Taskservice implements Taskservicejk{
