@@ -31,9 +31,9 @@ public class LoginInterceptor implements HandlerInterceptor
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
 	{
 		
-		 String url = request.getRequestURI().toString();  
+		 String url = request.getRequestURI();  
         //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制  
-        if(url.contains("login")||url.contains("register")||url.contains("ddapiuser")||url.contains("api-docs")||url.contains("api-doc")){  
+        if(url.indexOf("login")>=0||url.indexOf("register")>=0||url.indexOf("ddapiuser")>=0){  
             return true;  
         }  
         //获取Session  
@@ -41,10 +41,6 @@ public class LoginInterceptor implements HandlerInterceptor
         Integer userId=0;
         String username="";
         sessionid = request.getHeader("sessionid");  
-        if (sessionid==null)
-		{
-			return false;
-		}
         userId = Tokenmg.getUserdbId(request);  
         username=Tokenmg.getUsername(request);
        if (sessionid!=null&&username!=null&userId!=null)

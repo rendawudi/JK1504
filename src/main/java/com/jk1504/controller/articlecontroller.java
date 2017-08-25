@@ -20,7 +20,7 @@ import com.jk1504.fuzhu.Tokenmg;
 import com.jk1504.service.Articleservice;
 
 @Controller
-@RequestMapping(value="/function")
+@RequestMapping(value="/user")
 public class articlecontroller
 {
 	@Autowired

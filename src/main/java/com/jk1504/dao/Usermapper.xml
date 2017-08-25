@@ -19,16 +19,4 @@
     <select id="returnbgzz" parameterType="java.lang.Integer" resultType="com.jk1504.entity.User"> 
         select nickname,impath,guanzhuliang from user where dbid=#{dbid}
     </select>
-    
-    <update id="updataimg" parameterType="com.jk1504.entity.User">
-    	update user set imgpath = #{imgpath} where dbid=#{dbid}
-    </update>
-    
-    <update id="updatapaswd" parameterType="com.jk1504.entity.User">
-    	update user set userpassword = #{userpassword} where dbid=#{dbid}
-    </update>
-    
-    <update id="updatanick" parameterType="com.jk1504.entity.User">
-    	update user set nickname = #{nickname} where dbid=#{dbid}
-    </update>
 </mapper>
