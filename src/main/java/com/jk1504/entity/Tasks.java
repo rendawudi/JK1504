@@ -5,7 +5,25 @@ public class Tasks {
 		private Integer numnow;
 		private Integer taskid;			//发布人信息对应dbid,任务信息对应taskid
 		private String taskjson;		//json格式数据直接储存
+		private String nickname;
+		private String imgpath;
 		
+		public String getNickname()
+		{
+			return nickname;
+		}
+		public void setNickname(String nickname)
+		{
+			this.nickname = nickname;
+		}
+		public String getImgpath()
+		{
+			return imgpath;
+		}
+		public void setImgpath(String imgpath)
+		{
+			this.imgpath = imgpath;
+		}
 		public Integer getNumnow() {
 			return numnow;
 		}

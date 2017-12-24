@@ -9,7 +9,7 @@
 
 	<!--发布者发布任务 -->
     <insert id="inserttask" parameterType="com.jk1504.entity.Tasks" > 
-        insert into task(dbid,taskjson) value(#{dbid},#{taskjson})
+        insert into task(dbid,taskjson,imgpath,nickname) value(#{dbid},#{taskjson},#{imgpath},#{nickname})
     </insert>
     
     <!--发布者读取已经发布的任务 -->

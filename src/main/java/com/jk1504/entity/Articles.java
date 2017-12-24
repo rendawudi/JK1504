@@ -10,7 +10,36 @@ public class Articles {
 		private String articlecontent;		//ÎÄÕÂÄÚÈÝ
 		private Date fbtime;
 		private Integer redu;
+		private String nickname;
+		private String imgpath;
+		private boolean boolgood;
 		
+		
+		
+		public boolean getBoolgood()
+		{
+			return boolgood;
+		}
+		public void setBoolgood(boolean boolgood)
+		{
+			this.boolgood = boolgood;
+		}
+		public String getNickname()
+		{
+			return nickname;
+		}
+		public void setNickname(String nickname)
+		{
+			this.nickname = nickname;
+		}
+		public String getImgpath()
+		{
+			return imgpath;
+		}
+		public void setImgpath(String imgpath)
+		{
+			this.imgpath = imgpath;
+		}
 		public Date getFbtime() {
 			return fbtime;
 		}

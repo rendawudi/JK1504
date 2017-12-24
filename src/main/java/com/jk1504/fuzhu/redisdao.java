@@ -29,7 +29,7 @@ public class redisdao
 		
 			if (sessionid.equals(jedis.get(username)))
 			{
-				jedis.expire(username, 3600*12);
+				jedis.expire(username, 3600*24*7);
 			return true;
 			}
 			else
@@ -60,11 +60,11 @@ public class redisdao
 				if (jedis.exists(username))
 			{
 				jedis.del(username);
-				jedis.setex(username, 3600*12, sessionid);
+				jedis.setex(username, 3600*24*7, sessionid);
 				return true;
 			}
 			else {
-				jedis.setex(username, 3600*12, sessionid);		
+				jedis.setex(username, 3600*24*7, sessionid);		
 			return true;
 			}
 			} finally

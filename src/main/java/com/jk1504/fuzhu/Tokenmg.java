@@ -3,16 +3,13 @@ package com.jk1504.fuzhu;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 
 import  static com.jk1504.fuzhu.JavaWebToken.verifyJavaWebToken;
 
 public class Tokenmg
 {
-	    private static Map<String, Object> getClientLoginInfo(HttpServletRequest request) throws Exception {
+	    private static Map<String, Object> getClientLoginInfo(String sessionId) throws Exception {
 	        Map<String, Object> r = new HashMap<>();
-	        String sessionId = request.getHeader("sessionId");
 	        if (sessionId != null) {
 	            r = decodeSession(sessionId);
 	            return r;
@@ -20,16 +17,21 @@ public class Tokenmg
 	        throw new Exception("sessionΩ‚Œˆ¥ÌŒÛ");
 	    }
 
-	    public static Integer getUserdbId(HttpServletRequest request) throws Exception {
-	        return  Integer.valueOf((Integer)getClientLoginInfo(request).get("dbid"));
+	    public static Integer getUserdbId(String sessionId) throws Exception {
+	        return  Integer.valueOf((Integer)getClientLoginInfo(sessionId).get("dbid"));
 	    }
 	    
-	    public static Integer getUsermonitor(HttpServletRequest request) throws Exception {
-	        return  Integer.valueOf((Integer)getClientLoginInfo(request).get("monitor"));
+	    public static Integer getUsermonitor(String sessionId) throws Exception {
+	        return  Integer.valueOf((Integer)getClientLoginInfo(sessionId).get("monitor"));
 	    }
 	    
-	    public static String getUsername(HttpServletRequest request) throws Exception {
-	        return  ((String)getClientLoginInfo(request).get("username"));
+	    public static String getUsername(String sessionId) throws Exception {
+	        return  ((String)getClientLoginInfo(sessionId).get("username"));
+	    }
+	    
+	    
+	    public static Long getSystemTime(String sessionId) throws Exception {
+	        return  ((Long)getClientLoginInfo(sessionId).get("time"));
 	    }
 	    /**
 	     * sessionΩ‚√‹

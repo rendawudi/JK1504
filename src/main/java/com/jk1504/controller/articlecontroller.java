@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,14 +29,14 @@ public class articlecontroller
 	private Articleservice articleservice;
 	
 	@RequestMapping(value="/article/putarticle",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public @ResponseBody String putarticle(@RequestBody Articles articles,HttpServletRequest request)
+	public @ResponseBody String putArticle(@CookieValue(value="sessionId") String sessionId,@RequestBody Articles articles,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
 		Integer userId;
 		ObjectMapper mapper = new ObjectMapper(); 
 		try
 		{
-			userId = Tokenmg.getUserdbId(request);
+			userId = Tokenmg.getUserdbId(sessionId);
 			articles.setDbid(userId);
 			 Date dt = new Date(); 
 			articles.setFbtime(dt);
@@ -65,14 +67,14 @@ public class articlecontroller
 	}
 	
 	@RequestMapping(value="/article/delarticle",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public @ResponseBody String delarticle(@RequestBody Articles articles,HttpServletRequest request)
+	public @ResponseBody String delArticle(@CookieValue(value="sessionId") String sessionId,@RequestBody Articles articles,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
 		Integer userId;
 		ObjectMapper mapper = new ObjectMapper(); 
 		try
 		{
-			userId = Tokenmg.getUserdbId(request);
+			userId = Tokenmg.getUserdbId(sessionId);
 			articles.setDbid(userId);
 			if (articleservice.scwz(articles))
 			{
@@ -100,21 +102,23 @@ public class articlecontroller
 		return "false";
 	}
 	
-	@RequestMapping(value="/article/getarticle",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
-	public @ResponseBody String getarticle(@RequestBody Integer stateid)
+	@RequestMapping(value="/article/getarticle",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public @ResponseBody String getArticle(@CookieValue(value="sessionId") String sessionId,@RequestParam Integer stateid,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
+		Integer userId;
 		ObjectMapper mapper = new ObjectMapper(); 
 		List<Articles> articles;
 		try
 		{
+			userId = Tokenmg.getUserdbId(sessionId);
 			if (stateid.equals(0))//0时间排序   1热度排序
 			{
-				articles=articleservice.dqwztime();
+				articles=articleservice.dqwztime(userId);
 			}
 			else
 			{
-				articles=articleservice.dqwzredu();
+				articles=articleservice.dqwzredu(userId);
 			}
 			dto.setData(articles); 
 			dto.setMsg("文章读取成功");
@@ -135,23 +139,54 @@ public class articlecontroller
 		return "false";
 	}
 	
-	@RequestMapping(value="/article/getarticlecontent",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
-	public @ResponseBody String getarticlecontent(@RequestBody Integer articleid)
+	@RequestMapping(value="/article/goodarticle",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public @ResponseBody String goodArticle(@CookieValue(value="sessionId") String sessionId,@RequestParam Integer articleid,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
+		Integer userId;
 		ObjectMapper mapper = new ObjectMapper(); 
 		try
 		{
-			String articlecontent=articleservice.dqwz(articleid);
-			dto.setData(articlecontent); 
-			dto.setMsg("文章内容读取成功");
-			return mapper.writeValueAsString(dto);
+			userId=Tokenmg.getUserdbId(sessionId);
+			if (articleservice.dzwz(articleid,userId))
+			{
+			return mapper.writeValueAsString(dto);				
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("文章内容读取失败");
+		dto.setMsg("文章点赞失败");
+		try
+		{
+			return mapper.writeValueAsString(dto);
+		} catch (JsonProcessingException e)
+		{
+			e.printStackTrace();
+		}
+		return "false";
+	}
+	
+	@RequestMapping(value="/article/degoodarticle",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+	public @ResponseBody String degoodArticle(@CookieValue(value="sessionId") String sessionId,@RequestParam Integer articleid,HttpServletRequest request)
+	{
+		jsdto dto = new jsdto();
+		Integer userId;
+		ObjectMapper mapper = new ObjectMapper(); 
+		try
+		{
+			userId=Tokenmg.getUserdbId(sessionId);
+			if (articleservice.qxdzwz(articleid,userId))
+			{
+			return mapper.writeValueAsString(dto);				
+			}
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		dto.setCode("-1");
+		dto.setMsg("文章取消点赞失败");
 		try
 		{
 			return mapper.writeValueAsString(dto);

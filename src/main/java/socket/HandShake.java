@@ -2,6 +2,7 @@ package socket;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
+import org.springframework.web.util.WebUtils;
 
 import com.jk1504.fuzhu.Tokenmg;
 import com.jk1504.fuzhu.redisdao;
@@ -31,16 +33,21 @@ public class HandShake	implements	HandshakeInterceptor
 	@Override
 	public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) throws Exception
-	{
-		String sessionid =((ServletServerHttpRequest)request).getServletRequest().getParameter("sessionid");
-		 if (sessionid==null)
+	{ 
+		ServletServerHttpRequest servletServerRequest = (ServletServerHttpRequest) request;
+        HttpServletRequest servletRequest = servletServerRequest.getServletRequest();
+        attributes.put("username","renda");
+		return true;
+		/*Cookie sessionidcookie =WebUtils.getCookie(servletRequest, "sessionId");
+		String sessionid = sessionidcookie.getValue();
+		if (sessionid==null)
 			{
 				return false;
 			}
 	        Integer userId=0;
 	        String username="";
-		 userId = Tokenmg.getUserdbId((HttpServletRequest)request);  
-	        username=Tokenmg.getUsername((HttpServletRequest)request);
+		 userId = Tokenmg.getUserdbId(sessionid);  
+	        username=Tokenmg.getUsername(sessionid);
 	       if (sessionid!=null&&username!=null&userId!=null)
 		{
 			 if (redis.pdxg(sessionid, username)&&!userId.equals(0))
@@ -50,6 +57,7 @@ public class HandShake	implements	HandshakeInterceptor
 			}
 		}
 		return false;
+		*/
 	}
 		
 }

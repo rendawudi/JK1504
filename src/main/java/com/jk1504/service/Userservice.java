@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.jk1504.dao.Usermapper;
 import com.jk1504.entity.User;
+import com.jk1504.entity.Usermsg;
 import com.jk1504.entity.Userxgxx;
+import com.jk1504.entity.simpleUser;
 import com.jk1504.exception.Userexcption;
 import com.jk1504.exception.loginsb;
 import com.jk1504.exception.userzhucesb;
@@ -22,9 +24,9 @@ public class Userservice implements Userservicejk{
 
 	@Override
 	public User Userzc(User user) throws userzhucesb, Userexcption {
-		String mmString=user.getUserpassword();
+		String mmString=user.getPassword();
 		String hashed=BCrypt.hashpw(mmString, BCrypt.gensalt());
-		user.setUserpassword(hashed);
+		user.setPassword(hashed);
 		try {
 			int insertcount=usermapper.insertuser(user);
 			if (insertcount<=0) {
@@ -44,12 +46,27 @@ public class Userservice implements Userservicejk{
 	}
 
 	@Override
+	public Usermsg returnUserById(Integer id) throws Exception
+	{
+		Usermsg u1 = new Usermsg();		
+		try
+		{
+			u1=usermapper.returnUserId(id);
+			return u1;
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return u1;		
+	}
+	
+	@Override
 	public User Userlogin(User user) throws loginsb, Userexcption {
 		try
 		{
 		User zsuser=usermapper.returnuser(user);
-		String zsmm=zsuser.getUserpassword();
-		String srmm=user.getUserpassword();
+		String zsmm=zsuser.getPassword();
+		String srmm=user.getPassword();
 		if (BCrypt.checkpw(srmm, zsmm)) {
 			return zsuser;
 		} else {
@@ -65,11 +82,11 @@ public class Userservice implements Userservicejk{
 	}
 
 	@Override
-	public List<User> Userxx(List<Integer> dbid) throws Userexcption {
-		List<User> cxUsers = new ArrayList<User>();
+	public List<simpleUser> Userxx(Integer[] dbid) throws Userexcption {
+		List<simpleUser> cxUsers = new ArrayList<simpleUser>();
 		for(Integer id:dbid)
 		{
-			User e;
+			simpleUser e;
 			try {
 				e = usermapper.returnbgzz(id);
 				cxUsers.add(e);				
@@ -90,12 +107,12 @@ public class Userservice implements Userservicejk{
 			User zsuser=new User();
 			zsuser.setUsername(user.getUsername());
 		 zsuser=usermapper.returnuser(zsuser);
-		String zsmm=zsuser.getUserpassword();
+		String zsmm=zsuser.getPassword();
 		String srmm=user.getUserpassword();
 		if (BCrypt.checkpw(srmm, zsmm)) {
 			String mmString=user.getNewuserpassword();
 			String hashed=BCrypt.hashpw(mmString, BCrypt.gensalt());
-			zsuser.setUserpassword(hashed);
+			zsuser.setPassword(hashed);
 			if (usermapper.updatapaswd(zsuser)>0)
 			{
 				return true;

@@ -8,7 +8,8 @@ public interface Articleservicejk
 {
 	public boolean tjwz(Articles articles);
 	public boolean scwz(Articles articles);
-	public List<Articles> dqwztime();
-	public List<Articles> dqwzredu();
-	public String dqwz(Integer articleid);
+	public List<Articles> dqwztime(Integer dbid);
+	public List<Articles> dqwzredu(Integer dbid);
+	public boolean dzwz(Integer articleid,Integer dbid);
+	public boolean qxdzwz(Integer articleid,Integer dbid);
 }

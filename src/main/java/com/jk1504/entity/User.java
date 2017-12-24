@@ -4,7 +4,7 @@ package com.jk1504.entity;
 public class User {
 	private String username;		//用户名
 	private String nickname;    	//昵称
-	private String userpassword;	//密码
+	private String password;	//密码
 	private String xingming;		//学生姓名
 	private String stuid;			//学号
 	private Integer dbid;			//数据库关联id
@@ -25,12 +25,6 @@ public class User {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-	public String getUserpassword() {
-		return userpassword;
-	}
-	public void setUserpassword(String userpassword) {
-		this.userpassword = userpassword;
 	}
 	public String getXingming() {
 		return xingming;
@@ -85,6 +79,14 @@ public class User {
 	}
 	public void setUserclass(String userclass) {
 		this.userclass = userclass;
+	}
+	public String getPassword()
+	{
+		return password;
+	}
+	public void setPassword(String password)
+	{
+		this.password = password;
 	}
 	
 }

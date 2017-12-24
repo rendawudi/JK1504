@@ -6,12 +6,13 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
-
+@Component
 public class MyWebSocketHandler implements WebSocketHandler
 {
 
@@ -45,15 +46,14 @@ public class MyWebSocketHandler implements WebSocketHandler
 		if (userSocketSessionMap.get(username)==null)
 		{
 			userSocketSessionMap.put(username, session);
-			
 		}
 	}
 
 	@Override
-	public void handleMessage(WebSocketSession arg0, WebSocketMessage<?> message) throws Exception
+	public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception
 	{
 		// TODO 自动生成的方法存根
-		
+		System.out.println(message.getPayload().toString());
 		
 	}
 
@@ -74,7 +74,6 @@ public class MyWebSocketHandler implements WebSocketHandler
                 break;  
             }  
         }  
-		
 	}
 
 	@Override
@@ -87,10 +86,8 @@ public class MyWebSocketHandler implements WebSocketHandler
 	public void broadcast(final TextMessage message) throws IOException {  
         Iterator<Entry<String, WebSocketSession>> it = userSocketSessionMap  
                 .entrySet().iterator();  
-  
         // 多线程群发  
         while (it.hasNext()) {  
-  
             final Entry<String, WebSocketSession> entry = it.next();  
   
             if (entry.getValue().isOpen()) {  
@@ -114,10 +111,8 @@ public class MyWebSocketHandler implements WebSocketHandler
 	public void sendMessageToJsp(final TextMessage message,String type) throws IOException {  
         Iterator<Entry<String, WebSocketSession>> it = userSocketSessionMap  
                 .entrySet().iterator();  
-  
         // 多线程群发  
         while (it.hasNext()) {  
-  
             final Entry<String, WebSocketSession> entry = it.next();  
             if (entry.getValue().isOpen() && entry.getKey().contains(type)) {  
                 new Thread(new Runnable() {  
@@ -134,7 +129,6 @@ public class MyWebSocketHandler implements WebSocketHandler
   
                 }).start();  
             }  
-  
         }  
     }  
 }
