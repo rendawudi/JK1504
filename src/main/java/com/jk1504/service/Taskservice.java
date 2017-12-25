@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jk1504.dao.Tasksmapper;
+import com.jk1504.entity.Ceshi;
+import com.jk1504.entity.CeshiSearch;
+import com.jk1504.entity.Daan;
+import com.jk1504.entity.DaanPut;
+import com.jk1504.entity.TaskPut;
 import com.jk1504.entity.Tasks;
 import com.jk1504.entity.Usertask;
 import com.jk1504.exception.taskwcrsexception;
@@ -19,14 +24,19 @@ public class Taskservice implements Taskservicejk{
 	private Tasksmapper taskmapper;
 	
 	@Override
-	public boolean faburenwu(Tasks tasks) {
+	public boolean faburenwu(TaskPut taskPut) {
 		try {
-			int boolpd=taskmapper.inserttask(tasks);
+			int boolpd=taskmapper.inserttask(taskPut.getTasks());
 			if (boolpd<=0) {
 				return false;
 			}
 			else
 			{
+				for(Ceshi i : taskPut.getCeshis())
+				{
+					i.setTaskid(taskPut.getTasks().getTaskid());
+					taskmapper.insertceshi(i);
+				}
 				return true;
 			}
 		} catch (Exception e) {
@@ -70,22 +80,20 @@ public class Taskservice implements Taskservicejk{
 
 	@Override
 	@Transactional
-	public boolean wcrenwu(Usertask usertask)throws taskwcrsexception,taskxgexception {
+	public boolean wcrenwu(DaanPut daanPut)throws taskwcrsexception,taskxgexception {
 		try {
-			int boolpd=taskmapper.inserttasks(usertask);
+			int boolpd=taskmapper.inserttasks(daanPut.getUsertask());
 			if (boolpd<=0) {
 				throw new taskxgexception("提交任务失败");
 			}
 			else
 			{
-				int boww=taskmapper.inupdatetasks(usertask.getTaskid());
-				if (boww<0) {
-					throw new taskwcrsexception("增加人数失败");
-				}
-				else
+				for(Daan daan : daanPut.getDaans())
 				{
-					return true;
+					daan.setId(daanPut.getUsertask().getDbid());
+					taskmapper.insertdaan(daan);
 				}
+				return true;
 			}
 		} 
 		catch (taskwcrsexception e1) {
@@ -127,53 +135,26 @@ public class Taskservice implements Taskservicejk{
 	}
 
 	@Override
-	public List<Tasks> fbhdrenwu(Integer stateid, Integer dbid) {
-		List<Tasks> alltasks=new ArrayList<Tasks>();
+	public List<Ceshi> fbhdrenwu(Integer type,Integer taskid, Integer num) {
+		List<Ceshi> alltasks=new ArrayList<Ceshi>();
+		CeshiSearch ceshiSearch = new CeshiSearch();
+		ceshiSearch.setNum(num);
+		ceshiSearch.setTaskid(taskid);
+		ceshiSearch.setType(type);
 		try {
-			alltasks=taskmapper.returntasks();
+			alltasks=taskmapper.returnceshis(ceshiSearch);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		if (alltasks.isEmpty()) {
-			return alltasks;
-		}
-		if (stateid.equals(0)) {
-			return alltasks;
-		}
-		List<Tasks> wwctasks=new ArrayList<Tasks>();
-		List<Tasks> ywctasks=new ArrayList<Tasks>();
-			for(Tasks tasks:alltasks)
-			{
-				Usertask t1=new Usertask();
-				Usertask tasks2=new Usertask();
-				t1.setTaskid(tasks.getTaskid());
-				t1.setDbid(dbid);
-				try 
-				{
-					tasks2=taskmapper.returntaskssx(t1);
-					if (tasks2.getTaskcomplete().equals(0)) 
-					{
-						wwctasks.add(tasks);
-					} else {
-						ywctasks.add(tasks);
-					}
-				} catch (Exception e) 
-				{
-					// TODO 自动生成的 catch 块
-					e.printStackTrace();
-				}
-				
-			}
-		if (stateid.equals(1)) 
-		{
-			return wwctasks;
-		}
 		
-		if (stateid.equals(2)) 
-		{
-			return ywctasks;
-		}
 		return alltasks;
+	}
+
+	@Override
+	public List<Tasks> geTasks() throws Exception
+	{
+		// TODO 自动生成的方法存根
+		return taskmapper.returntasks();
 	}
 }

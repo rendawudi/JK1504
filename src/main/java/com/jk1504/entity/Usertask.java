@@ -7,7 +7,6 @@ package com.jk1504.entity;
 public class Usertask {
 	private Integer dbid;		
 	private Integer taskid;
-	private String jsontask;
 	private Integer taskcomplete;//0是未完成任务
 	
 	public Integer getTaskcomplete() {
@@ -28,11 +27,6 @@ public class Usertask {
 	public void setTaskid(Integer taskid) {
 		this.taskid = taskid;
 	}
-	public String getJsontask() {
-		return jsontask;
-	}
-	public void setJsontask(String jsontask) {
-		this.jsontask = jsontask;
-	}
+
 	
 }
