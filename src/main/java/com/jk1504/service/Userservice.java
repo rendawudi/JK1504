@@ -18,7 +18,7 @@ import com.jk1504.exception.userzhucesb;
 
 @Service
 public class Userservice implements Userservicejk{
-	
+
 	@Autowired
 	private Usermapper usermapper;
 
@@ -30,25 +30,25 @@ public class Userservice implements Userservicejk{
 		try {
 			int insertcount=usermapper.insertuser(user);
 			if (insertcount<=0) {
-			throw new userzhucesb("×¢²áÊ§°Ü£¬¿ÉÄÜÕËºÅÖØ¸´");
-		} else {
-			User u1=usermapper.returnuser(user);
-			return u1;
-		}
+				throw new userzhucesb("æ³¨å†Œå¤±è´¥ï¼Œå¯èƒ½è´¦å·é‡å¤");
+			} else {
+				User u1=usermapper.returnuser(user);
+				return u1;
+			}
 		}
 		catch (userzhucesb e1) {
 			throw e1;
 		}
 		catch (Exception e) {
-			
-			throw new Userexcption("×¢²áÒì³£"+e.getMessage());
+
+			throw new Userexcption("æ³¨å†Œå¼‚å¸¸"+e.getMessage());
 		}
 	}
 
 	@Override
 	public Usermsg returnUserById(Integer id) throws Exception
 	{
-		Usermsg u1 = new Usermsg();		
+		Usermsg u1 = new Usermsg();
 		try
 		{
 			u1=usermapper.returnUserId(id);
@@ -57,27 +57,27 @@ public class Userservice implements Userservicejk{
 		{
 			e.printStackTrace();
 		}
-		return u1;		
+		return u1;
 	}
-	
+
 	@Override
 	public User Userlogin(User user) throws loginsb, Userexcption {
 		try
 		{
-		User zsuser=usermapper.returnuser(user);
-		String zsmm=zsuser.getPassword();
-		String srmm=user.getPassword();
-		if (BCrypt.checkpw(srmm, zsmm)) {
-			return zsuser;
-		} else {
-			throw new loginsb("µÇÂ½Ê§°Ü");
-		}
+			User zsuser=usermapper.returnuser(user);
+			String zsmm=zsuser.getPassword();
+			String srmm=user.getPassword();
+			if (BCrypt.checkpw(srmm, zsmm)) {
+				return zsuser;
+			} else {
+				throw new loginsb("ç™»é™†å¤±è´¥");
+			}
 		}
 		catch (loginsb e1) {
 			throw e1;
 		}
 		catch (Exception e) {
-			throw new Userexcption("µÇÂ¼Òì³£"+e.getMessage());
+			throw new Userexcption("ç™»å½•å¼‚å¸¸"+e.getMessage());
 		}
 	}
 
@@ -89,10 +89,10 @@ public class Userservice implements Userservicejk{
 			simpleUser e;
 			try {
 				e = usermapper.returnbgzz(id);
-				cxUsers.add(e);				
+				cxUsers.add(e);
 			} catch (Exception e1) {
-				// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
-				throw new Userexcption("»ñÈ¡ÓÃ»§ÐÅÏ¢Ê§°Ü"+e1.getMessage());
+				// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
+				throw new Userexcption("èŽ·å–ç”¨æˆ·ä¿¡æ¯å¤±è´¥"+e1.getMessage());
 			}
 
 		}
@@ -106,27 +106,27 @@ public class Userservice implements Userservicejk{
 		{
 			User zsuser=new User();
 			zsuser.setUsername(user.getUsername());
-		 zsuser=usermapper.returnuser(zsuser);
-		String zsmm=zsuser.getPassword();
-		String srmm=user.getUserpassword();
-		if (BCrypt.checkpw(srmm, zsmm)) {
-			String mmString=user.getNewuserpassword();
-			String hashed=BCrypt.hashpw(mmString, BCrypt.gensalt());
-			zsuser.setPassword(hashed);
-			if (usermapper.updatapaswd(zsuser)>0)
-			{
-				return true;
-			}
-			else
-			{
+			zsuser=usermapper.returnuser(zsuser);
+			String zsmm=zsuser.getPassword();
+			String srmm=user.getUserpassword();
+			if (BCrypt.checkpw(srmm, zsmm)) {
+				String mmString=user.getNewuserpassword();
+				String hashed=BCrypt.hashpw(mmString, BCrypt.gensalt());
+				zsuser.setPassword(hashed);
+				if (usermapper.updatapaswd(zsuser)>0)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			} else {
 				return false;
 			}
-		} else {
-			return false;
+
 		}
-		
-		}
-		
+
 		catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,6 +164,6 @@ public class Userservice implements Userservicejk{
 		}
 		return user1;
 	}
-	
+
 
 }

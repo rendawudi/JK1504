@@ -1,9 +1,12 @@
 package com.jk1504.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 public class User {
 	private String username;		//用户名
-	private String nickname;    	//昵称
+	private String nickname;   //昵称
 	private String password;	//密码
 	private String xingming;		//学生姓名
 	private String stuid;			//学号

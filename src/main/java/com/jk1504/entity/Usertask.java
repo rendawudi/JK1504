@@ -1,14 +1,14 @@
 package com.jk1504.entity;
 
 /*
- * ÓÃ»§ÈÎÎñÁĞ±íÏÔÊ¾£¬ÓÃ»§ÈÎÎñµÄÍê³ÉºÍÌá½»
- * 
+ * ç”¨æˆ·ä»»åŠ¡åˆ—è¡¨æ˜¾ç¤ºï¼Œç”¨æˆ·ä»»åŠ¡çš„å®Œæˆå’Œæäº¤
+ *
  */
 public class Usertask {
-	private Integer dbid;		
+	private Integer dbid;
 	private Integer taskid;
-	private Integer taskcomplete;//0ÊÇÎ´Íê³ÉÈÎÎñ
-	
+	private Integer taskcomplete;//0æ˜¯æœªå®Œæˆä»»åŠ¡
+
 	public Integer getTaskcomplete() {
 		return taskcomplete;
 	}
@@ -28,5 +28,5 @@ public class Usertask {
 		this.taskid = taskid;
 	}
 
-	
+
 }
