@@ -23,4 +23,8 @@ public interface Tasksmapper {
 	public int inupdatetasks(Integer taskid) throws Exception;
 	public int deupdatetasks(Integer taskid) throws Exception;
 	public List<Ceshi> returnceshi(CeshiSearch ceshiSearch) throws Exception;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3735b662eabbd1374b9dab1d62c0ac1b324a25c0

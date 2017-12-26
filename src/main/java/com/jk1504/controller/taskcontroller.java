@@ -31,26 +31,26 @@ public class taskcontroller
 {
 	@Autowired
 	private Taskservice taskservice;
-	
+
 	@RequestMapping(value="/task/gettaskbymonitor",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public @ResponseBody String taskGet(@CookieValue(value="sessionId") String sessionId,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
 		Integer userId;
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
 			userId = Tokenmg.getUserdbId(sessionId);
 			List<Tasks> tasks=taskservice.yjfbrenwu(userId);
-			
-			dto.setData(tasks); 
+
+			dto.setData(tasks);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("获取任务失败");
+		dto.setMsg("鑾峰彇浠诲姟澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
@@ -60,23 +60,23 @@ public class taskcontroller
 		}
 		return "false";
 	}
-	
+
 	@RequestMapping(value="/task/puttaskbymonitor",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public @ResponseBody String taskFb(@CookieValue(value="sessionId") String sessionId,@RequestBody TaskPut taskPut,HttpServletRequest request) throws Exception
 	{
 		jsdto dto = new jsdto();
 		Integer userId = Tokenmg.getUserdbId(sessionId);
 		taskPut.getTasks().setDbid(userId);
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
 			if (taskservice.faburenwu(taskPut))
 			{
-				dto.setMsg("任务发布成功");
+				dto.setMsg("浠诲姟鍙戝竷鎴愬姛");
 			} else
 			{
 				dto.setCode("-1");
-				dto.setMsg("任务发布失败");
+				dto.setMsg("浠诲姟鍙戝竷澶辫触");
 			}
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
@@ -84,72 +84,72 @@ public class taskcontroller
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("任务发布失败");
+		dto.setMsg("浠诲姟鍙戝竷澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
 		} catch (JsonProcessingException e)
 		{
-		
+
 			e.printStackTrace();
 		}
 		return "false";
 	}
-	
+
 	@RequestMapping(value="/task/deltaskbymonitor",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public @ResponseBody String taskSc(@CookieValue(value="sessionId") String sessionId,@RequestBody Tasks tasks,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
 		Integer userId;
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
 			userId = Tokenmg.getUserdbId(sessionId);
 			tasks.setDbid(userId);
 			if (taskservice.scfbrenwu(tasks))
 			{
-				dto.setMsg("任务删除成功");
+				dto.setMsg("浠诲姟鍒犻櫎鎴愬姛");
 			} else
 			{
 				dto.setCode("-1");
-				dto.setMsg("任务删除失败");
+				dto.setMsg("浠诲姟鍒犻櫎澶辫触");
 			}
-			dto.setData(tasks); 
+			dto.setData(tasks);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("任务删除失败");
+		dto.setMsg("浠诲姟鍒犻櫎澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
 		} catch (JsonProcessingException e)
 		{
-		
+
 			e.printStackTrace();
 		}
 		return "false";
 	}
-	
+
 	@RequestMapping(value="/task/finishtask",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
 	public @ResponseBody String taskWc(@CookieValue(value="sessionId") String sessionId,@RequestBody DaanPut daanPut,HttpServletRequest request) throws Exception
 	{
 		jsdto dto = new jsdto();
 		Integer userId = Tokenmg.getUserdbId(sessionId);
 		daanPut.getUsertask().setDbid(userId);
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
-			
+
 			if (taskservice.wcrenwu(daanPut))
 			{
-				dto.setMsg("任务提交成功");
+				dto.setMsg("浠诲姟鎻愪氦鎴愬姛");
 			} else
 			{
 				dto.setCode("-1");
-				dto.setMsg("任务提交失败");
+				dto.setMsg("浠诲姟鎻愪氦澶辫触");
 			}
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
@@ -157,44 +157,44 @@ public class taskcontroller
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("任务提交失败");
+		dto.setMsg("浠诲姟鎻愪氦澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
 		} catch (JsonProcessingException e)
 		{
-		
+
 			e.printStackTrace();
 		}
 		return "false";
 	}
-	
-	@RequestMapping(value="/task/deltask",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
+
+	@RequestMapping(value="/task/deltask",method=RequestMethod.POST)
 	public @ResponseBody String scTask(@CookieValue(value="sessionId") String sessionId,@RequestBody Usertask usertask,HttpServletRequest request)
 	{
 		jsdto dto = new jsdto();
 		Integer userId;
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
 			userId = Tokenmg.getUserdbId(sessionId);
 			usertask.setDbid(userId);
 			if (taskservice.csrenwu(usertask))
 			{
-				dto.setMsg("任务删除成功");
+				dto.setMsg("浠诲姟鍒犻櫎鎴愬姛");
 			} else
 			{
 				dto.setCode("-1");
-				dto.setMsg("任务删除失败");
+				dto.setMsg("浠诲姟鍒犻櫎澶辫触");
 			}
-			dto.setData(usertask); 
+			dto.setData(usertask);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("任务提交失败");
+		dto.setMsg("浠诲姟鎻愪氦澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
@@ -204,29 +204,28 @@ public class taskcontroller
 		}
 		return "false";
 	}
-	
+
 	@RequestMapping(value="/task/getceshi",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
 	public @ResponseBody String getceshi(@RequestParam(value="taskid", required = false)Integer taskid)
 	{
+		System.out.println(taskid);
 		jsdto dto = new jsdto();
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		List<Ceshi> task = new ArrayList<>();
 		try
 		{
-			List<Ceshi> tasks=taskservice.fbhdrenwu(0,taskid,30);
-			List<Ceshi> tasks1=taskservice.fbhdrenwu(1,taskid,30);
-			List<Ceshi> tasks2=taskservice.fbhdrenwu(2,taskid,30);
-			task.addAll(tasks2);
+			List<Ceshi> tasks2=taskservice.fbhdrenwu(2,taskid,5);
+			List<Ceshi> tasks1=taskservice.fbhdrenwu(1,taskid,5);
 			task.addAll(tasks1);
-			task.addAll(tasks);
-			dto.setData(task); 
+			task.addAll(tasks2);
+			dto.setData(task);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("任务获取失败");
+		dto.setMsg("浠诲姟鑾峰彇澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
@@ -236,23 +235,23 @@ public class taskcontroller
 		}
 		return "false";
 	}
-	
-	@RequestMapping(value="/task/gettask",method=RequestMethod.GET,produces="application/json;charset=UTF-8")
+
+	@RequestMapping(value="/task/gettask",method=RequestMethod.POST)
 	public @ResponseBody String getTask()
 	{
 		jsdto dto = new jsdto();
-		ObjectMapper mapper = new ObjectMapper(); 
+		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
 			List<Tasks> tasks=taskservice.geTasks();
-			dto.setData(tasks); 
+			dto.setData(tasks);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 		dto.setCode("-1");
-		dto.setMsg("任务获取失败");
+		dto.setMsg("浠诲姟鑾峰彇澶辫触");
 		try
 		{
 			return mapper.writeValueAsString(dto);
