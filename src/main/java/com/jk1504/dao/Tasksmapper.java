@@ -22,5 +22,5 @@ public interface Tasksmapper {
 	public List<Tasks> returntasks() throws Exception;
 	public int inupdatetasks(Integer taskid) throws Exception;
 	public int deupdatetasks(Integer taskid) throws Exception;
-	public List<Ceshi> returnceshis(CeshiSearch ceshiSearch) throws Exception;
+	public List<Ceshi> returnceshi(CeshiSearch ceshiSearch) throws Exception;
 }

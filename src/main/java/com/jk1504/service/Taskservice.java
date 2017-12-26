@@ -22,7 +22,7 @@ import com.jk1504.exception.taskxgexception;
 public class Taskservice implements Taskservicejk{
 	@Autowired
 	private Tasksmapper taskmapper;
-	
+
 	@Override
 	public boolean faburenwu(TaskPut taskPut) {
 		try {
@@ -40,7 +40,7 @@ public class Taskservice implements Taskservicejk{
 				return true;
 			}
 		} catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		}
 		return false;
@@ -50,10 +50,10 @@ public class Taskservice implements Taskservicejk{
 	public List<Tasks> yjfbrenwu(Integer dbid) {
 		List<Tasks> list=new ArrayList<Tasks>();
 		try {
-		list=taskmapper.returntask(dbid);
-			
+			list=taskmapper.returntask(dbid);
+
 		} catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		}
 		return list;
@@ -72,7 +72,7 @@ public class Taskservice implements Taskservicejk{
 				return true;
 			}
 		} catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		}
 		return false;
@@ -84,7 +84,7 @@ public class Taskservice implements Taskservicejk{
 		try {
 			int boolpd=taskmapper.inserttasks(daanPut.getUsertask());
 			if (boolpd<=0) {
-				throw new taskxgexception("Ìá½»ÈÎÎñÊ§°Ü");
+				throw new taskxgexception("æäº¤ä»»åŠ¡å¤±è´¥");
 			}
 			else
 			{
@@ -95,13 +95,13 @@ public class Taskservice implements Taskservicejk{
 				}
 				return true;
 			}
-		} 
+		}
 		catch (taskwcrsexception e1) {
 			throw e1;
 		}
 		catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
-			throw new taskxgexception("ÈÎÎñÌá½»´íÎó"+e.getMessage());
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
+			throw new taskxgexception("ä»»åŠ¡æäº¤é”™è¯¯"+e.getMessage());
 		}
 	}
 
@@ -111,50 +111,52 @@ public class Taskservice implements Taskservicejk{
 		try {
 			int boolpd=taskmapper.deletetasks(usertask);
 			if (boolpd<=0) {
-				throw new taskxgexception("É¾³ıÈÎÎñÊ§°Ü");
+				throw new taskxgexception("åˆ é™¤ä»»åŠ¡å¤±è´¥");
 			}
 			else
 			{
 				int boww=taskmapper.deupdatetasks(usertask.getTaskid());
 				if (boww<0) {
-					throw new taskwcrsexception("¼õÉÙÈËÊıÊ§°Ü");
+					throw new taskwcrsexception("å‡å°‘äººæ•°å¤±è´¥");
 				}
 				else
 				{
 					return true;
 				}
 			}
-		} 
+		}
 		catch (taskwcrsexception e1) {
 			throw e1;
 		}
 		catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
-			throw new taskxgexception("ÈÎÎñÉ¾³ı´íÎó"+e.getMessage());
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
+			throw new taskxgexception("ä»»åŠ¡åˆ é™¤é”™è¯¯"+e.getMessage());
 		}
 	}
 
 	@Override
-	public List<Ceshi> fbhdrenwu(Integer type,Integer taskid, Integer num) {
+	public List<Ceshi> fbhdrenwu(Integer type,Integer taskid, Integer num)  {
 		List<Ceshi> alltasks=new ArrayList<Ceshi>();
 		CeshiSearch ceshiSearch = new CeshiSearch();
 		ceshiSearch.setNum(num);
 		ceshiSearch.setTaskid(taskid);
 		ceshiSearch.setType(type);
+
+
 		try {
-			alltasks=taskmapper.returnceshis(ceshiSearch);
+			alltasks=taskmapper.returnceshi(ceshiSearch);
 		} catch (Exception e) {
-			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			// TODO è‡ªåŠ¨ç”Ÿæˆçš„ catch å—
 			e.printStackTrace();
 		}
-		
+
 		return alltasks;
 	}
 
 	@Override
 	public List<Tasks> geTasks() throws Exception
 	{
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		return taskmapper.returntasks();
 	}
 }
