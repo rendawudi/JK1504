@@ -63,6 +63,6 @@
     </select>
     
     <select id="returnceshi"    parameterType="com.jk1504.entity.CeshiSearch" resultType="com.jk1504.entity.Ceshi"> 
-        SELECT * FROM ceshi AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(timuid) FROM ceshi) - (SELECT MIN(timuid) FROM ceshi)) + (SELECT MIN(timuid) FROM ceshi)) AS rid) AS t2 WHERE t1.rid >= t2.rid and taskid = #{taskid} and type = #{type} ORDER BY t1.rid LIMIT ${num}  
+        SELECT * FROM ceshi AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(timuid) FROM ceshi) - (SELECT MIN(timuid) FROM ceshi)) + (SELECT MIN(timuid) FROM ceshi)) AS timuid) AS t2 WHERE t1.timuid >= t2.timuid and taskid = #{taskid} and type = #{type} ORDER BY t1.rid LIMIT ${num}  
     </select>
 </mapper>
