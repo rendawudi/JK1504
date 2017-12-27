@@ -2,33 +2,40 @@ package com.jk1504.entity;
 
 public class Daan
 {
-    Integer timuid;
-    Integer id;
-    String daan;
-    public Integer getTimuid()
-    {
-        return timuid;
-    }
-    public void setTimuid(Integer timuid)
-    {
-        this.timuid = timuid;
-    }
-    public Integer getId()
-    {
-        return id;
-    }
-    public void setId(Integer id)
-    {
-        this.id = id;
-    }
-    public String getDaan()
-    {
-        return daan;
-    }
-    public void setDaan(String daan)
-    {
-        this.daan = daan;
+    Integer taskid;//前端需要填taskid,stuid
+    Integer stuid;
+    String qtime;
+    float correctpercent;
+
+    public Integer getTaskid() {
+        return taskid;
     }
 
+    public void setTaskid(Integer taskid) {
+        this.taskid = taskid;
+    }
 
+    public Integer getStuid() {
+        return stuid;
+    }
+
+    public void setStuid(Integer stuid) {
+        this.stuid = stuid;
+    }
+
+    public String getQtime() {
+        return qtime;
+    }
+
+    public void setQtime(String qtime) {
+        this.qtime = qtime;
+    }
+
+    public float getCorrectpercent() {
+        return correctpercent;
+    }
+
+    public void setCorrectpercent(float correctpercent) {
+        this.correctpercent = correctpercent;
+    }
 }

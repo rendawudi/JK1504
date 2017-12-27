@@ -15,13 +15,14 @@ public interface Tasksmapper {
 	public int deletetask(Tasks tasks) throws Exception;
 	public int deleteceshi(Tasks tasks) throws Exception;
 	public int deletetasksbyowner(Tasks tasks)throws Exception;
-	public int inserttasks(Usertask usertask) throws Exception;
 	public int insertdaan(Daan daan) throws Exception;
-	public int deletetasks(Usertask usertask) throws Exception;
-	public Usertask returntaskssx(Usertask usertask) throws Exception;
+	public Ceshi returnceshipercent(Integer timuid) throws Exception;
+	public int inupdatetasks(Ceshi ceshi) throws Exception;
+	public int deletetasks(Daan daan) throws Exception;
 	public List<Tasks> returntasks() throws Exception;
-	public int inupdatetasks(Integer taskid) throws Exception;
-	public int deupdatetasks(Integer taskid) throws Exception;
 	public List<Ceshi> returnceshi(CeshiSearch ceshiSearch) throws Exception;
+	public List<Daan> returndaan(Daan daan) throws Exception;
+	public List<Ceshi> returnceshitop(Ceshi ceshi) throws Exception;
+	public int updatedaan(Daan daan) throws Exception;
 }
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.jk1504.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -16,12 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jk1504.entity.Ceshi;
-import com.jk1504.entity.DaanPut;
-import com.jk1504.entity.TaskPut;
-import com.jk1504.entity.Tasks;
-import com.jk1504.entity.Usertask;
-import com.jk1504.entity.jsdto;
 import com.jk1504.fuzhu.Tokenmg;
 import com.jk1504.service.Taskservice;
 
@@ -134,15 +129,12 @@ public class taskcontroller
 	}
 
 	@RequestMapping(value="/task/finishtask",method=RequestMethod.POST,produces="application/json;charset=UTF-8")
-	public @ResponseBody String taskWc(@CookieValue(value="sessionId") String sessionId,@RequestBody DaanPut daanPut,HttpServletRequest request) throws Exception
+	public @ResponseBody String taskWc(@RequestBody DaanPut daanPut,HttpServletRequest request) throws Exception
 	{
 		jsdto dto = new jsdto();
-		Integer userId = Tokenmg.getUserdbId(sessionId);
-		daanPut.getUsertask().setDbid(userId);
 		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
-
 			if (taskservice.wcrenwu(daanPut))
 			{
 				dto.setMsg("任务提交成功");
@@ -252,6 +244,56 @@ public class taskcontroller
 		}
 		dto.setCode("-1");
 		dto.setMsg("任务获取失败");
+		try
+		{
+			return mapper.writeValueAsString(dto);
+		} catch (JsonProcessingException e)
+		{
+			e.printStackTrace();
+		}
+		return "false";
+	}
+
+	@RequestMapping(value="/task/errortimutop",method=RequestMethod.POST)//获得某个任务中错误率最高的任务
+	public @ResponseBody String errortimutop(@RequestParam(value="taskid")Integer taskid)
+	{
+		jsdto dto = new jsdto();
+		ObjectMapper mapper = new ObjectMapper();
+		try
+		{
+			List<Ceshi> ceshis=taskservice.getCeshiTop(taskid);
+			dto.setData(ceshis);
+			return mapper.writeValueAsString(dto);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		dto.setCode("-1");
+		try
+		{
+			return mapper.writeValueAsString(dto);
+		} catch (JsonProcessingException e)
+		{
+			e.printStackTrace();
+		}
+		return "false";
+	}
+
+	@RequestMapping(value="/task/donetimu",method=RequestMethod.POST) //获得完成的任务列表情况
+	public @ResponseBody String donetimu(@RequestParam(value="stuid")Integer stuid)
+	{
+		jsdto dto = new jsdto();
+		ObjectMapper mapper = new ObjectMapper();
+		try
+		{
+			List<Daan> daans=taskservice.getwcDaan(stuid);
+			dto.setData(daans);
+			return mapper.writeValueAsString(dto);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		dto.setCode("-1");
 		try
 		{
 			return mapper.writeValueAsString(dto);

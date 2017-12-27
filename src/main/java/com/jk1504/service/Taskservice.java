@@ -1,20 +1,16 @@
 package com.jk1504.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.jk1504.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.jk1504.dao.Tasksmapper;
-import com.jk1504.entity.Ceshi;
-import com.jk1504.entity.CeshiSearch;
-import com.jk1504.entity.Daan;
-import com.jk1504.entity.DaanPut;
-import com.jk1504.entity.TaskPut;
-import com.jk1504.entity.Tasks;
-import com.jk1504.entity.Usertask;
 import com.jk1504.exception.taskwcrsexception;
 import com.jk1504.exception.taskxgexception;
 
@@ -80,58 +76,50 @@ public class Taskservice implements Taskservicejk{
 
 	@Override
 	@Transactional
-	public boolean wcrenwu(DaanPut daanPut)throws taskwcrsexception,taskxgexception {
-		try {
-			int boolpd=taskmapper.inserttasks(daanPut.getUsertask());
+	public boolean wcrenwu(DaanPut daanPut)throws Exception {
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			int cuowu = 0;
+			for(DaanGet daanGet : daanPut.getDaans())
+			{
+				Ceshi ceshi = taskmapper.returnceshipercent(daanGet.getTimuid());
+				if (!daanGet.getRightdaan())
+				{
+					ceshi.setNum(ceshi.getNum()+1);
+					ceshi.setErrornum(ceshi.getErrornum()+1);
+					ceshi.setErrorpercent(ceshi.getErrornum()/ceshi.getNum());
+					taskmapper.inupdatetasks(ceshi);
+					cuowu++;
+				}
+				else
+				{
+					ceshi.setNum(ceshi.getNum()+1);
+					ceshi.setErrorpercent(ceshi.getErrornum()/ceshi.getNum());
+					taskmapper.inupdatetasks(ceshi);
+				}
+			}
+			Daan daan = daanPut.getDaan();
+			daan.setQtime(sdf.format(date));
+			daan.setCorrectpercent(cuowu/daanPut.getDaans().size());//BUG:如果size只为1时，正确率可能为100
+			int boolpd=taskmapper.insertdaan(daan);
 			if (boolpd<=0) {
-				throw new taskxgexception("提交任务失败");
+				boolpd = taskmapper.updatedaan(daan);
+				if (boolpd<=0)
+					return false;
+				else
+					return true;
 			}
 			else
 			{
-				for(Daan daan : daanPut.getDaans())
-				{
-					daan.setId(daanPut.getUsertask().getDbid());
-					taskmapper.insertdaan(daan);
-				}
 				return true;
 			}
-		}
-		catch (taskwcrsexception e1) {
-			throw e1;
-		}
-		catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			throw new taskxgexception("任务提交错误"+e.getMessage());
-		}
+
 	}
 
 	@Override
 	@Transactional
 	public boolean csrenwu(Usertask usertask) throws taskwcrsexception,taskxgexception{
-		try {
-			int boolpd=taskmapper.deletetasks(usertask);
-			if (boolpd<=0) {
-				throw new taskxgexception("删除任务失败");
-			}
-			else
-			{
-				int boww=taskmapper.deupdatetasks(usertask.getTaskid());
-				if (boww<0) {
-					throw new taskwcrsexception("减少人数失败");
-				}
-				else
-				{
-					return true;
-				}
-			}
-		}
-		catch (taskwcrsexception e1) {
-			throw e1;
-		}
-		catch (Exception e) {
-			// TODO 自动生成的 catch 块
-			throw new taskxgexception("任务删除错误"+e.getMessage());
-		}
+		return true;
 	}
 
 	@Override
@@ -159,4 +147,22 @@ public class Taskservice implements Taskservicejk{
 		// TODO 自动生成的方法存根
 		return taskmapper.returntasks();
 	}
+
+	@Override
+	public List<Ceshi> getCeshiTop(Integer taskid) throws Exception {
+		Ceshi ceshi = new Ceshi();
+		ceshi.setTaskid(taskid);
+		List<Ceshi> ceshis = taskmapper.returnceshitop(ceshi);
+		return ceshis;
+	}
+
+	@Override
+	public List<Daan> getwcDaan(Integer stuid) throws Exception {
+		Daan daan = new Daan();
+		daan.setStuid(stuid);
+		List<Daan> daans = taskmapper.returndaan(daan);
+		return daans;
+	}
+
+
 }

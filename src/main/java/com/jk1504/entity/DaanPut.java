@@ -4,24 +4,22 @@ import java.util.List;
 
 public class DaanPut
 {
-    Usertask usertask;
-    List<Daan> daans;
-    public Usertask getUsertask()
-    {
-        return usertask;
+    Daan daan;
+    List<DaanGet> daans;
+
+    public Daan getDaan() {
+        return daan;
     }
-    public void setUsertask(Usertask usertask)
-    {
-        this.usertask = usertask;
+
+    public void setDaan(Daan daan) {
+        this.daan = daan;
     }
-    public List<Daan> getDaans()
-    {
+
+    public List<DaanGet> getDaans() {
         return daans;
     }
-    public void setDaans(List<Daan> daans)
-    {
+
+    public void setDaans(List<DaanGet> daans) {
         this.daans = daans;
     }
-
-
 }

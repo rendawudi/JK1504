@@ -13,7 +13,7 @@
     </insert>
 
     <insert id="insertceshi" parameterType="com.jk1504.entity.Ceshi" >
-        insert into ceshi(taskid,timujson,type) value(#{taskid},#{timujson},#{type})
+        insert into ceshi(taskid,timujson,qtype,num,errorpercent) value(#{taskid},#{timujson},#{qtype},#{num},#{errorpercent})
     </insert>
 
     <!--发布者读取已经发布的任务 -->
@@ -31,37 +31,47 @@
     </delete>
 
     <delete id="deletetasksbyowner" parameterType="com.jk1504.entity.Tasks" >
-        delete  from tasks where taskid=#{taskid}
+        delete  from daan where taskid=#{taskid}
     </delete>
 
 
     <!--完成者提交任务 -->
-    <insert id="inserttasks" parameterType="com.jk1504.entity.Usertask" >
-        insert into tasks(dbid,taskid,taskcomplete) value(#{dbid},#{taskid},#{taskcomplete})
-    </insert>
-
     <insert id="insertdaan" parameterType="com.jk1504.entity.Daan" >
-        insert into daan(timuid,id,daan) value(#{timuid},#{id},#{daan})
+        insert into daan(taskid,stuid,qtime,correctpercent) value(#{taskid},#{stuid},#{qtime},#{correctpercent})
     </insert>
 
-    <update id="inupdatetasks" parameterType="java.lang.Integer">
-        update task set numnow = numnow +1 where taskid=#{taskid}
+    <select id="returnceshipercent"   parameterType="java.lang.Integer" resultType="com.jk1504.entity.Ceshi">
+        select * from ceshi where timuid = #{timuid}
+    </select>
+
+    <update id="inupdatetasks" parameterType="com.jk1504.entity.Ceshi">
+        update ceshi set num = #{num},errornum = #{errornum},errorpercent = #{errorpercent} where timuid = #{timuid}
     </update>
     <!--完成者删除自己的提交 -->
-    <delete id="deletetasks" parameterType="com.jk1504.entity.Usertask" >
-        delete  from tasks where taskid=#{taskid} and dbid=#{dbid}
+    <delete id="deletetasks" parameterType="com.jk1504.entity.Daan" >
+        delete  from daan where taskid=#{taskid} and dbid=#{dbid}
     </delete>
-    <update id="deupdatetasks" parameterType="java.lang.Integer">
-        update task set numnow = numnow -1 where taskid=#{taskid}
-    </update>
+
     <!--完成者读取发布后任务列表 -->
-    <select id="returntaskssx"  parameterType="com.jk1504.entity.Usertask"  resultType="com.jk1504.entity.Usertask">
-        select * from tasks where taskid=#{taskid} and dbid=#{dbid}
-    </select>
+
     <select id="returntasks"    resultType="com.jk1504.entity.Tasks">
         select * from task
     </select>
     <select id="returnceshi"    parameterType="com.jk1504.entity.CeshiSearch" resultType="com.jk1504.entity.Ceshi">
         SELECT * FROM ceshi AS t1 JOIN (SELECT ROUND(RAND() * ((SELECT MAX(timuid) FROM ceshi) - (SELECT MIN(timuid) FROM ceshi)) + (SELECT MIN(timuid) FROM ceshi)) AS timuid) AS t2 WHERE t1.timuid >= t2.timuid and taskid = #{taskid} and type = #{type} ORDER BY t1.timuid LIMIT ${num}
     </select>
+
+    <select id="returndaan" parameterType="com.jk1504.entity.Daan" resultType="com.jk1504.entity.Daan">
+        select * from daan WHENEVER stuid = #{stuid}
+    </select>
+
+    <!-- 一个任务中次数大于3的获得错误率最高的5个数据-->
+    <select id="returnceshitop" parameterType="com.jk1504.entity.Ceshi" resultType="com.jk1504.entity.Ceshi">
+        select * from ceshi WHENEVER taskid = #{taskid} and num &gt; 3 ORDER BY errorpercent DESC limit 5
+    </select>
+
+    <update id="updatedaan" parameterType="com.jk1504.entity.Daan">
+        update daan set qtime = #{qtime},correctpercent = #{correctpercent} where taskid = #{taskid} and stuid = #{stuid}
+    </update>
+
 </mapper>

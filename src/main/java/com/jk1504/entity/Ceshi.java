@@ -5,7 +5,19 @@ public class Ceshi
     Integer timuid;
     Integer taskid;
     String timujson;
-    Integer type;
+    Integer qtype;
+    Integer num;
+    Integer errornum;
+    float errorpercent;
+
+    public Integer getErrornum() {
+        return errornum;
+    }
+
+    public void setErrornum(Integer errornum) {
+        this.errornum = errornum;
+    }
+
     public Integer getTimuid()
     {
         return timuid;
@@ -30,14 +42,28 @@ public class Ceshi
     {
         this.timujson = timujson;
     }
-    public Integer getType()
-    {
-        return type;
-    }
-    public void setType(Integer type)
-    {
-        this.type = type;
+
+    public Integer getQtype() {
+        return qtype;
     }
 
+    public void setQtype(Integer qtype) {
+        this.qtype = qtype;
+    }
 
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
+    }
+
+    public float getErrorpercent() {
+        return errorpercent;
+    }
+
+    public void setErrorpercent(float errorpercent) {
+        this.errorpercent = errorpercent;
+    }
 }

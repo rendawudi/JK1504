@@ -5,6 +5,8 @@ public class CeshiSearch
     Integer taskid;
     Integer type;
     Integer num;
+
+
     public Integer getTaskid()
     {
         return taskid;
