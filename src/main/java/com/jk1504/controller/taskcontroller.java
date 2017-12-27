@@ -286,7 +286,7 @@ public class taskcontroller
 		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
-			List<Daan> daans=taskservice.getwcDaan(stuid,taskid);
+			List<Daan> daans=taskservice.getwcDaan(stuid,taskid);//修改
 			dto.setData(daans);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)
