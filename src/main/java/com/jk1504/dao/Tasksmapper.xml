@@ -62,7 +62,7 @@
     </select>
 
     <select id="returndaan" parameterType="com.jk1504.entity.Daan" resultType="com.jk1504.entity.Daan">
-        select * from daan WHENEVER stuid = #{stuid}
+        select qtime,correctpercent from daan WHENEVER stuid = #{stuid} and taskid = #{taskid}
     </select>
 
     <!-- 一个任务中次数大于3的获得错误率最高的5个数据-->

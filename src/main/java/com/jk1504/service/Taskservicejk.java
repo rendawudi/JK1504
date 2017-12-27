@@ -16,5 +16,5 @@ public interface Taskservicejk {
 	public List<Ceshi>fbhdrenwu(Integer type,Integer taskid, Integer num);
 	public List<Tasks> geTasks()throws Exception;
 	public List<Ceshi> getCeshiTop(Integer taskid) throws Exception;
-	public List<Daan> getwcDaan(Integer stuid) throws Exception;
+	public List<Daan> getwcDaan(Integer stuid,Integer taskid) throws Exception;
 }

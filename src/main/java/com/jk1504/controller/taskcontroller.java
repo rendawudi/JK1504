@@ -280,13 +280,13 @@ public class taskcontroller
 	}
 
 	@RequestMapping(value="/task/donetimu",method=RequestMethod.POST) //获得完成的任务列表情况
-	public @ResponseBody String donetimu(@RequestParam(value="stuid")Integer stuid)
+	public @ResponseBody String donetimu(@RequestParam(value="stuid")Integer stuid,@RequestParam(value="taskid")Integer taskid)
 	{
 		jsdto dto = new jsdto();
 		ObjectMapper mapper = new ObjectMapper();
 		try
 		{
-			List<Daan> daans=taskservice.getwcDaan(stuid);
+			List<Daan> daans=taskservice.getwcDaan(stuid,taskid);
 			dto.setData(daans);
 			return mapper.writeValueAsString(dto);
 		} catch (Exception e)

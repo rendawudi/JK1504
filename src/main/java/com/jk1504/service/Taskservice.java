@@ -103,11 +103,7 @@ public class Taskservice implements Taskservicejk{
 			daan.setCorrectpercent(cuowu/daanPut.getDaans().size());//BUG:如果size只为1时，正确率可能为100
 			int boolpd=taskmapper.insertdaan(daan);
 			if (boolpd<=0) {
-				boolpd = taskmapper.updatedaan(daan);
-				if (boolpd<=0)
-					return false;
-				else
-					return true;
+				return false;
 			}
 			else
 			{
@@ -157,9 +153,10 @@ public class Taskservice implements Taskservicejk{
 	}
 
 	@Override
-	public List<Daan> getwcDaan(Integer stuid) throws Exception {
+	public List<Daan> getwcDaan(Integer stuid,Integer taskid) throws Exception {
 		Daan daan = new Daan();
 		daan.setStuid(stuid);
+		daan.setTaskid(taskid);
 		List<Daan> daans = taskmapper.returndaan(daan);
 		return daans;
 	}
