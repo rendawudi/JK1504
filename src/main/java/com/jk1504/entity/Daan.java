@@ -3,7 +3,7 @@ package com.jk1504.entity;
 public class Daan
 {
     Integer taskid;//前端需要填taskid,stuid
-    Integer stuid;
+    String stuid;
     String qtime;
     float correctpercent;
 
@@ -15,11 +15,11 @@ public class Daan
         this.taskid = taskid;
     }
 
-    public Integer getStuid() {
+    public String getStuid() {
         return stuid;
     }
 
-    public void setStuid(Integer stuid) {
+    public void setStuid(String stuid) {
         this.stuid = stuid;
     }
 

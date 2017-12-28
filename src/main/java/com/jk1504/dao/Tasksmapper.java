@@ -20,7 +20,8 @@ public interface Tasksmapper {
 	public int inupdatetasks(Ceshi ceshi) throws Exception;
 	public int deletetasks(Daan daan) throws Exception;
 	public List<Tasks> returntasks() throws Exception;
-	public List<Ceshi> returnceshi(CeshiSearch ceshiSearch) throws Exception;
+	public List<Integer> returnceshitimu(CeshiSearch ceshiSearch) throws Exception;
+	public Ceshi returnceshi(Integer timuid);
 	public List<Daan> returndaan(Daan daan) throws Exception;
 	public List<Ceshi> returnceshitop(Ceshi ceshi) throws Exception;
 	public int updatedaan(Daan daan) throws Exception;

@@ -57,8 +57,13 @@
     <select id="returntasks"    resultType="com.jk1504.entity.Tasks">
         select * from task
     </select>
-    <select id="returnceshi"    parameterType="com.jk1504.entity.CeshiSearch" resultType="com.jk1504.entity.Ceshi">
-        SELECT * FROM ceshi WHERE timuid >= ((SELECT MAX(timuid) FROM ceshi WHERE taskid = #{taskid} and qtype = #{qtype})-(SELECT MIN(timuid) FROM ceshi WHERE taskid = #{taskid} and qtype = #{qtype})) * RAND() + (SELECT MIN(timuid) FROM ceshi WHERE taskid = #{taskid} and qtype = #{qtype})   ORDER BY timuid LIMIT ${num}
+
+    <select id="returnceshitimu"    parameterType="com.jk1504.entity.CeshiSearch" resultType="com.jk1504.entity.Ceshi">
+        SELECT timuid FROM ceshi WHERE taskid = #{taskid} and qtype = #{qtype}
+    </select>
+
+    <select id="returnceshi"    parameterType="java.lang.Integer" resultType="com.jk1504.entity.Ceshi">
+        SELECT * FROM ceshi WHERE timuid = #{timuid}
     </select>
 
     <select id="returndaan" parameterType="com.jk1504.entity.Daan" resultType="com.jk1504.entity.Daan">

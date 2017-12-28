@@ -1,9 +1,7 @@
 package com.jk1504.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.jk1504.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,7 +118,8 @@ public class Taskservice implements Taskservicejk{
 
 	@Override
 	public List<Ceshi> fbhdrenwu(Integer type,Integer taskid, Integer num)  {
-		List<Ceshi> alltasks=new ArrayList<Ceshi>();
+		List<Integer> taskids=new ArrayList<>();
+		List<Integer> suiji = new ArrayList<>();
 		CeshiSearch ceshiSearch = new CeshiSearch();
 		ceshiSearch.setNum(num);
 		ceshiSearch.setTaskid(taskid);
@@ -128,13 +127,24 @@ public class Taskservice implements Taskservicejk{
 
 
 		try {
-			alltasks=taskmapper.returnceshi(ceshiSearch);
+			taskids=taskmapper.returnceshitimu(ceshiSearch);
 		} catch (Exception e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
+		if (taskids==null||taskids.size()==0)
+        {
+            return null;
+        }
+		Taskservice.randomSet(0, taskids.size()-1, num, suiji);
+        List<Ceshi> newceshis = new ArrayList<>();
+		for (Integer j : suiji)
+        {
+            Ceshi ceshi = taskmapper.returnceshi(taskids.get(j));
+            newceshis.add(ceshi);
+        }
 
-		return alltasks;
+		return newceshis;
 	}
 
 	@Override
@@ -153,7 +163,7 @@ public class Taskservice implements Taskservicejk{
 	}
 
 	@Override
-	public List<Daan> getwcDaan(Integer stuid,Integer taskid) throws Exception {
+	public List<Daan> getwcDaan(String stuid,Integer taskid) throws Exception {
 		Daan daan = new Daan();
 		daan.setStuid(stuid);
 		daan.setTaskid(taskid);
@@ -161,5 +171,15 @@ public class Taskservice implements Taskservicejk{
 		return daans;
 	}
 
-
+    public static void randomSet(int min, int max, int n, List<Integer> set) {
+        if (n > (max - min + 1) || max < min) {
+            return;
+        }
+        while (set.size()<n)
+        {
+            int num = (int) (Math.random() * (max - min)) + min;
+            if (!set.contains(num))
+            set.add(num);// 将不同的数存入HashSet中
+        }
+    }
 }

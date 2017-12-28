@@ -206,8 +206,14 @@ public class taskcontroller
 		List<Ceshi> task = new ArrayList<>();
 		try
 		{
-			List<Ceshi> tasks2=taskservice.fbhdrenwu(2,taskid,50);
-			List<Ceshi> tasks1=taskservice.fbhdrenwu(1,taskid,50);
+			List<Ceshi> tasks2=taskservice.fbhdrenwu(2,taskid,30);
+			List<Ceshi> tasks1=taskservice.fbhdrenwu(1,taskid,30);
+			for (Ceshi i : tasks2)
+            {
+                if (!i.getTaskid().equals(taskid))
+                System.out.print(i.getTaskid());
+            }
+
 			task.addAll(tasks1);
 			task.addAll(tasks2);
 			dto.setData(task);
@@ -280,7 +286,7 @@ public class taskcontroller
 	}
 
 	@RequestMapping(value="/task/donetimu",method=RequestMethod.POST) //获得完成的任务列表情况
-	public @ResponseBody String donetimu(@RequestParam(value="stuid")Integer stuid,@RequestParam(value="taskid")Integer taskid)
+	public @ResponseBody String donetimu(@RequestParam(value="stuid")String stuid,@RequestParam(value="taskid")Integer taskid)
 	{
 		jsdto dto = new jsdto();
 		ObjectMapper mapper = new ObjectMapper();
