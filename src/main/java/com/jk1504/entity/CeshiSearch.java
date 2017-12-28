@@ -3,7 +3,7 @@ package com.jk1504.entity;
 public class CeshiSearch
 {
     Integer taskid;
-    Integer type;
+    Integer qtype;
     Integer num;
 
 
@@ -15,14 +15,15 @@ public class CeshiSearch
     {
         this.taskid = taskid;
     }
-    public Integer getType()
-    {
-        return type;
+
+    public Integer getQtype() {
+        return qtype;
     }
-    public void setType(Integer type)
-    {
-        this.type = type;
+
+    public void setQtype(Integer qtype) {
+        this.qtype = qtype;
     }
+
     public Integer getNum()
     {
         return num;
