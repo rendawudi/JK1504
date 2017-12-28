@@ -58,7 +58,7 @@
         select * from task
     </select>
 
-    <select id="returnceshitimu"    parameterType="com.jk1504.entity.CeshiSearch" resultType="com.jk1504.entity.Ceshi">
+    <select id="returnceshitimu"    parameterType="com.jk1504.entity.CeshiSearch" resultType="java.lang.Integer">
         SELECT timuid FROM ceshi WHERE taskid = #{taskid} and qtype = #{qtype}
     </select>
 
