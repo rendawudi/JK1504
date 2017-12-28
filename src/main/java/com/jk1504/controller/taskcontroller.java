@@ -206,8 +206,8 @@ public class taskcontroller
 		List<Ceshi> task = new ArrayList<>();
 		try
 		{
-			List<Ceshi> tasks2=taskservice.fbhdrenwu(2,taskid,5);
-			List<Ceshi> tasks1=taskservice.fbhdrenwu(1,taskid,5);
+			List<Ceshi> tasks2=taskservice.fbhdrenwu(2,taskid,50);
+			List<Ceshi> tasks1=taskservice.fbhdrenwu(1,taskid,50);
 			task.addAll(tasks1);
 			task.addAll(tasks2);
 			dto.setData(task);

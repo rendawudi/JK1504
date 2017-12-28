@@ -124,7 +124,7 @@ public class Taskservice implements Taskservicejk{
 		CeshiSearch ceshiSearch = new CeshiSearch();
 		ceshiSearch.setNum(num);
 		ceshiSearch.setTaskid(taskid);
-		ceshiSearch.setType(type);
+		ceshiSearch.setQtype(type);
 
 
 		try {
